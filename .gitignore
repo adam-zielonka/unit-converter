@@ -13,3 +13,7 @@
 *.apk
 *.aab
 output.json
+/dist/
+*.jks
+*.keystore
+*.p12

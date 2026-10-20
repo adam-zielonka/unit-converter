@@ -3,6 +3,7 @@
 ## Table of contents
 
 - [Project structure](#project-structure)
+- [Build and releases](#build-and-releases)
 - [Measure File Format](#measure-file-format)
   - [Properties](#properties)
   - [Equations](#equations)
@@ -16,6 +17,30 @@
 - `items` - android library that contain ItemsView
 - `java` - java library that contain supporting code
 - `verification` - java library that support code to make interface to verify objects
+
+## Build and releases
+
+Download the installable APK from [GitHub Releases](https://github.com/adam-zielonka/unit-converter/releases/latest).
+Releases use a dedicated signing key. Updating an older Google Play installation may require uninstalling it first; export custom converters before uninstalling.
+
+The Android CI workflow builds a debug APK and runs unit tests for pushes to `main`, pull requests, and manual runs. Download the APK from the workflow's `unit-converter-debug` artifact.
+
+Local builds require JDK 11, Android SDK Platform 28, and Build Tools 30.0.3:
+
+```sh
+./gradlew :app:assembleNoPrefixDebug :app:testNoPrefixDebugUnitTest
+```
+
+To publish a release, update `versionMajor`, `versionMinor`, and `versionPatch` in `app/build.gradle`, commit to `main`, and push a matching tag (for example, `v1.1.28`). CI checks that the tag matches the APK version, verifies its signature, and publishes the signed APK and `SHA256SUMS` to GitHub Releases after a successful build.
+
+Release builds use these repository Actions secrets:
+
+- `ANDROID_KEYSTORE_BASE64`: base64-encoded release keystore (PKCS12).
+- `ANDROID_KEYSTORE_PASSWORD`: keystore password.
+- `ANDROID_KEY_ALIAS`: signing key alias.
+- `ANDROID_KEY_PASSWORD`: signing key password.
+
+Keep a secure backup of the keystore and passwords. Reuse the same key for future releases so Android can install updates. Signing secrets are only used for tag builds; pull request builds do not need them.
 
 ## Measure File Format
 
