@@ -6,6 +6,10 @@ def versionPatch = 28
 
 android {
     compileSdkVersion 28
+    lintOptions {
+        // GitHub APK releases preserve the existing target SDK and runtime behavior.
+        warning 'ExpiredTargetSdkVersion'
+    }
     defaultConfig {
         applicationId "pro.adamzielonka.converter"
         minSdkVersion 15
