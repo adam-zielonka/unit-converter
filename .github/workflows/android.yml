@@ -47,7 +47,7 @@ jobs:
           cache: gradle
 
       - name: Build debug APK and run unit tests
-        run: ./gradlew --no-daemon --stacktrace :app:assembleNoPrefixDebug :app:testNoPrefixDebugUnitTest
+        run: ./gradlew --no-daemon --stacktrace :app:assembleNoPrefixDebug :app:testNoPrefixDebugUnitTest :file:testDebugUnitTest
 
       - name: Upload debug APK
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
